@@ -7,7 +7,8 @@ on:
   pull_request:
     branches: [main]
   schedule:
-    - cron: '0 */4 * * *'  # Runs every 4hours
+    # - cron: '0 */4 * * *'  # Runs every 4hours
+    - cron: '*/2 * * * *'  # Runs every 2 minutes
 
 jobs:
   check-for-updates:
