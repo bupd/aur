@@ -5,8 +5,7 @@ on:
   push:
     branches: [main]
   schedule:
-    # - cron: '0 */4 * * *'  # Runs every 4hours
-    - cron: '*/2 * * * *'  # Runs every 2 minutes
+    - cron: '0 */8 * * *'  # Runs every 8hours
 
 jobs:
   check-for-updates:

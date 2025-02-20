@@ -1,3 +1,6 @@
 [submodule "dagger-git"]
 	path = dagger-git
 	url = https://aur.archlinux.org/dagger-git.git
+[submodule "oras-git"]
+	path = oras-git
+	url = https://aur.archlinux.org/oras-git.git
