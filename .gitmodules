@@ -1,3 +1,3 @@
 [submodule "dagger-git2"]
 	path = dagger-git2
-	url = ssh://aur@aur.archlinux.org/dagger-git.git
+	url = https://aur.archlinux.org/dagger-git.git
