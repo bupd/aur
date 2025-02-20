@@ -4,6 +4,8 @@ name: Check for Updates in Packages
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
   schedule:
     - cron: '0 */8 * * *'  # Runs every 8hours
 
