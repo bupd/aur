@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# hello
+
 # Parent directory to check
 PARENT_DIR="$1"
 
