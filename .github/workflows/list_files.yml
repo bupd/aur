@@ -2,9 +2,9 @@ name: List Files in Submodule
 
 # Trigger the action on the 'sub-add' branch only
 on:
-  push:
+  pull_request:
     branches:
-      - sub-add  # Runs when there is a push to the 'sub-add' branch
+      - main  # Runs when there is a push to the 'sub-add' branch
   schedule:
     - cron: '*/1 * * * *'  # Runs every minute (even if no push occurs)
 
