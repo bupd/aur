@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# Path to the nvchecker.toml configuration
+NV_CHECKER_TOML=".nvchecker.toml"
+
+# Path to the PKGBUILD file
+PKGBUILD_FILE="PKGBUILD"
+
+# Function to get the current version from the PKGBUILD
+get_pkgver() {
+  grep "^pkgver=" "$PKGBUILD_FILE" | cut -d'=' -f2 | tr -d '[:space:]'
+}
+
+# Function to get the latest version from GitHub tags using nvchecker
+get_latest_version() {
+  # Run nvchecker to check for the latest version
+  nvchecker -c "$NV_CHECKER_TOML" | grep 'Latest version' | cut -d' ' -f3
+}
+
+# Get the current version from the PKGBUILD
+current_version=$(get_pkgver)
+
+# Get the latest version from GitHub tags
+latest_version=$(get_latest_version)
+
+# Compare the versions
+if [ "$current_version" != "$latest_version" ]; then
+  echo "New version available!"
+  echo "Current version: $current_version"
+  echo "Latest version: $latest_version"
+
+  # Update the PKGBUILD with the new version
+  sed -i "s/^pkgver=.*/pkgver=$latest_version/" "$PKGBUILD_FILE"
+  echo "Updated PKGBUILD with the latest version: $latest_version"
+else
+  echo "You are already using the latest version ($current_version)."
+fi
