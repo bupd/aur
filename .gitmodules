@@ -7,3 +7,6 @@
 [submodule "git-donkey"]
 	path = git-donkey
 	url = https://aur.archlinux.org/git-donkey.git
+[submodule "harbor-cli"]
+	path = harbor-cli
+	url = https://aur.archlinux.org/harbor-cli.git
