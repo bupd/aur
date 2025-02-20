@@ -17,6 +17,17 @@ jobs:
         with:
           submodules: 'true'
 
+      - name: Set up Python
+        uses: 'actions/setup-python@v5'
+        with:
+          python-version: '3.13'  # Specify Python version
+      - run: pip install nvchecker
+
+      - name: Install nvchecker
+        run: |
+          python -m pip install --upgrade pip
+          pip install nvchecker  # Install nvchecker
+
       - name: Initialize submodule
         run: |
           git submodule update --init --recursive  # Initialize and update the submodule
