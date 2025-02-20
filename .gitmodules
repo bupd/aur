@@ -4,3 +4,6 @@
 [submodule "oras-git"]
 	path = oras-git
 	url = https://aur.archlinux.org/oras-git.git
+[submodule "git-donkey"]
+	path = git-donkey
+	url = https://aur.archlinux.org/git-donkey.git
