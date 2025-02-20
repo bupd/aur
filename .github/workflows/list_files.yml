@@ -1,0 +1,55 @@
+name: Check for Updates in Packages
+
+# Trigger the action on the 'sub-add' branch only
+on:
+  push:
+    branches: [main]
+  schedule:
+    # - cron: '0 */4 * * *'  # Runs every 4hours
+    - cron: '*/2 * * * *'  # Runs every 2 minutes
+
+jobs:
+  check-for-updates:
+    permissions:
+      contents: write
+      pull-requests: write
+    runs-on: ubuntu-latest  # Use an Ubuntu runner
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4  # Checks out the repository code
+        with:
+          submodules: 'true'
+
+      - name: Set up Python
+        uses: 'actions/setup-python@v5'
+        with:
+          python-version: '3.13'  # Specify Python version
+      - run: pip install nvchecker
+
+      - name: Initialize submodule
+        run: |
+          git submodule update --init --recursive  # Initialize and update the submodule
+
+      - name: List files in the submodule
+        run: |
+          tree  # List the contents inside the submodule
+          chmod +x ./newver-checker  # Give execute permissions to the script
+
+      - name: Run newver-checker
+        run: |
+          ./newver-checker | awk '{for(i=7;i<=10;i++) printf "%s ", $i; print ""}' > nvchecker.log  # Execute the tool to check for version changes
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: Update Package Version
+          signoff: true
+          sign-commits: true
+          branch-suffix: 'random'
+          delete-branch: true
+          base: 'main'
+          title: Update Packages in AUR
+          # labels: report, automated pr
+          assignees: bupd
+          reviewers: bupd
