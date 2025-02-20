@@ -1,0 +1,57 @@
+#!/bin/bash
+
+# Parent directory to check
+PARENT_DIR="$1"
+
+# Function to get the current version from the PKGBUILD
+get_pkgver() {
+  grep "^pkgver=" "$1/PKGBUILD" | cut -d'=' -f2 | tr -d '[:space:]'
+}
+
+# Function to get the latest version from GitHub tags using nvchecker
+get_latest_version() {
+  nvchecker -c "$1/nvchecker.toml" | grep 'Latest version' | cut -d' ' -f3
+}
+
+# Check if PARENT_DIR is provided and exists
+if [ -z "$PARENT_DIR" ]; then
+  echo "Please provide a parent directory."
+  exit 1
+fi
+
+if [ ! -d "$PARENT_DIR" ]; then
+  echo "The specified parent directory does not exist."
+  exit 1
+fi
+
+# Iterate over each subdirectory in the given parent directory
+for dir in "$PARENT_DIR"/*; do
+  # Only proceed if it's a directory
+  if [ -d "$dir" ]; then
+    echo "Checking directory: $dir"
+
+    # Check if nvchecker.toml exists in the directory
+    if [ -f "$dir/nvchecker.toml" ]; then
+      # Get current version from PKGBUILD
+      current_version=$(get_pkgver "$dir")
+
+      # Get the latest version from nvchecker
+      latest_version=$(get_latest_version "$dir")
+
+      # Compare versions
+      if [ "$current_version" != "$latest_version" ]; then
+        echo "New version available!"
+        echo "Current version: $current_version"
+        echo "Latest version: $latest_version"
+
+        # Update the PKGBUILD with the new version
+        sed -i "s/^pkgver=.*/pkgver=$latest_version/" "$dir/PKGBUILD"
+        echo "Updated PKGBUILD in $dir with the latest version: $latest_version"
+      else
+        echo "You are already using the latest version ($current_version) in $dir."
+      fi
+    else
+      echo "No nvchecker.toml found in $dir. Skipping folder."
+    fi
+  fi
+done
