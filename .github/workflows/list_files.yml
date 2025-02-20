@@ -38,7 +38,7 @@ jobs:
 
       - name: Run newver-checker
         run: |
-          ./newver-checker > nvchecker.log  # Execute the tool to check for version changes
+          ./newver-checker | awk '{for(i=7;i<=10;i++) printf "%s ", $i; print ""}' > nvchecker.log  # Execute the tool to check for version changes
 
       - name: Add date report file
         run: date >> nvchecker.log
