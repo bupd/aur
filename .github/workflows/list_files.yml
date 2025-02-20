@@ -1,0 +1,25 @@
+name: List Files in Submodule
+
+# Trigger the action on the 'sub-add' branch only
+on:
+  push:
+    branches:
+      - sub-add  # Runs when there is a push to the 'sub-add' branch
+  schedule:
+    - cron: '*/1 * * * *'  # Runs every minute (even if no push occurs)
+
+jobs:
+  list-files-in-submodule:
+    runs-on: ubuntu-latest  # Use an Ubuntu runner
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3  # Checks out the repository code
+
+      - name: Initialize submodule
+        run: |
+          git submodule update --init --recursive  # Initialize and update the submodule
+
+      - name: List files in the submodule
+        run: |
+          cd dagger-git2  # Navigate into the submodule directory
+          ls -la  # List the contents inside the submodule
