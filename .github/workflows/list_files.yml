@@ -1,4 +1,4 @@
-name: List Files in Submodule
+name: Check for Updates in Packages
 
 # Trigger the action on the 'sub-add' branch only
 on:
@@ -10,7 +10,7 @@ on:
     - cron: '0 */4 * * *'  # Runs every 4hours
 
 jobs:
-  list-files-in-submodule:
+  check-for-updates:
     permissions:
       contents: write
       pull-requests: write
@@ -40,9 +40,6 @@ jobs:
         run: |
           ./newver-checker | awk '{for(i=7;i<=10;i++) printf "%s ", $i; print ""}' > nvchecker.log  # Execute the tool to check for version changes
 
-      - name: Add date report file
-        run: date >> nvchecker.log
-
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
         with:
@@ -53,6 +50,7 @@ jobs:
           branch-suffix: 'random'
           delete-branch: true
           base: 'main'
+          title: Update Packages in AUR
           # labels: report, automated pr
           assignees: bupd
           reviewers: bupd
