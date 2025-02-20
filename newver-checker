@@ -30,7 +30,7 @@ for dir in */; do
     result=$(run_nvchecker)
 
     # Output the directory and result in the desired format
-    echo "$(pwd) - $result"
+    echo "$dir - $result"
 
     popd > /dev/null
 done

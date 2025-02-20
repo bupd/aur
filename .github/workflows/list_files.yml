@@ -7,7 +7,7 @@ on:
   pull_request:
     branches: [main]
   schedule:
-    - cron: '*/2 * * * *'  # Runs every 4hours
+    - cron: '0 */4 * * *'  # Runs every 4hours
 
 jobs:
   list-files-in-submodule:
@@ -27,11 +27,6 @@ jobs:
           python-version: '3.13'  # Specify Python version
       - run: pip install nvchecker
 
-      - name: Install nvchecker
-        run: |
-          python -m pip install --upgrade pip
-          pip install nvchecker  # Install nvchecker
-
       - name: Initialize submodule
         run: |
           git submodule update --init --recursive  # Initialize and update the submodule
@@ -43,10 +38,11 @@ jobs:
 
       - name: Run newver-checker
         run: |
-          ./newver-checker  # Execute the tool to check for version changes
+          ./newver-checker > nvchecker.log  # Execute the tool to check for version changes
 
-      - name: Create report file
-        run: date +%s > report.txt
+      - name: Add date report file
+        run: date >> nvchecker.log
+
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
         with:
@@ -56,7 +52,7 @@ jobs:
           sign-commits: true
           branch-suffix: 'random'
           delete-branch: true
-          base: 'check-pr'
+          base: 'main'
           # labels: report, automated pr
           assignees: bupd
           reviewers: bupd
