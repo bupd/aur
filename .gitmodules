@@ -10,3 +10,6 @@
 [submodule "harbor-cli"]
 	path = harbor-cli
 	url = https://aur.archlinux.org/harbor-cli.git
+[submodule "pack-cli-git"]
+	path = pack-cli-git
+	url = https://aur.archlinux.org/pack-cli-git.git
