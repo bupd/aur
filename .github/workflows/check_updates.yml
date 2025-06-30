@@ -40,8 +40,8 @@ jobs:
         run: |
           export NVLOG_NEW=$(./newver-checker | awk '{for(i=7;i<=10;i++) printf "%s ", $i; print ""}')
           export NVLOG_OLD=$(cat nvchecker.log)
-          export NVLOG_DIFF=$(diff <(echo "$NVLOG_OLD") <(echo "$NVLOG_NEW")
-          cat $NVLOG_NEW > nvchecker.log
+          export NVLOG_DIFF=$(diff <(echo "$NVLOG_OLD") <(echo "$NVLOG_NEW"))
+          cat "$NVLOG_NEW" > nvchecker.log
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
