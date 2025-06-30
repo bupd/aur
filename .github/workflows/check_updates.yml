@@ -55,7 +55,7 @@ jobs:
           delete-branch: true
           base: 'main'
           title: Update Packages in AUR
-          body: ${{ env.NVLOG_DIFF }}
+          body: 'No changes'
           # labels: report, automated pr
           assignees: bupd
           reviewers: bupd
