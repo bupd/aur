@@ -2,4 +2,4 @@ dagger: updated to 0.18.12
 git-donkey: updated to 1.0.1
 harbor-cli: updated to 0.0.7
 oras: updated to 1.2.3
-pack-cli: updated to 0.38.0
+pack-cli: updated to 0.38.2
