@@ -42,6 +42,7 @@ jobs:
           export NVLOG_OLD=$(cat nvchecker.log)
           export NVLOG_DIFF=$(diff <(echo "$NVLOG_OLD") <(echo "$NVLOG_NEW"))
           ./newver-checker | awk '{for(i=7;i<=10;i++) printf "%s ", $i; print ""}' > nvchecker.log  # Execute the tool to check for version changes
+          echo $NVLOG_DIFF
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
@@ -54,7 +55,7 @@ jobs:
           delete-branch: true
           base: 'main'
           title: Update Packages in AUR
-          body: ${{ env.NVLOG_NEW }}
+          body: ${{ env.NVLOG_DIFF }}
           # labels: report, automated pr
           assignees: bupd
           reviewers: bupd
