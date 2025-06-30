@@ -35,6 +35,7 @@ jobs:
         run: |
           tree  # List the contents inside the submodule
           chmod +x ./newver-checker  # Give execute permissions to the script
+          chmod +x ./format_diff.sh  # Give execute permissions to the script
 
       - name: Run newver-checker
         run: |
