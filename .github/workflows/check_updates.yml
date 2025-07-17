@@ -39,30 +39,21 @@ jobs:
 
       - name: Run newver-checker
         run: |
-          export NVLOG_NEW=$(./newver-checker | awk '{for(i=7;i<=10;i++) printf "%s ", $i; print ""}')
+          # export NVLOG_NEW=$(./newver-checker | awk '{for(i=7;i<=10;i++) printf "%s ", $i; print ""}')
           # Run newver-checker once and store output
           NEWVER_OUTPUT=$(./newver-checker)
-
           # Extract version info (fields 7 to 10) and store as new log
           NVLOG_NEW=$(echo "$NEWVER_OUTPUT" | awk '{for(i=7;i<=10;i++) printf "%s ", $i; print ""}')
-
+          # Read previous version log
+          NVLOG_OLD=$(cat nvchecker.log || echo "")  # fallback if file doesn't exist
           # Save the new log to file
           echo "$NVLOG_NEW" > nvchecker.log
-
-          # Read previous version log
-          NVLOG_OLD=$(cat nvchecker.old.log || echo "")  # fallback if file doesn't exist
-
           # Compute the diff between old and new logs
           NVLOG_DIFF=$(diff <(echo "$NVLOG_OLD") <(echo "$NVLOG_NEW"))
-
           # Print the diff
           echo "$NVLOG_DIFF"
-
           # Save diff to file in formatted way
           echo "$NVLOG_DIFF" | ./format_diff.sh > nvchecker.diff
-
-          # Update old log to current version
-          echo "$NVLOG_NEW" > nvchecker.old.log
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
