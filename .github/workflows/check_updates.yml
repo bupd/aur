@@ -49,7 +49,7 @@ jobs:
           # Save the new log to file
           echo "$NVLOG_NEW" > nvchecker.log
           # Compute the diff between old and new logs
-          NVLOG_DIFF=$(diff <(echo "$NVLOG_OLD") <(echo "$NVLOG_NEW"))
+          NVLOG_DIFF=$(diff <(echo "$NVLOG_OLD") <(echo "$NVLOG_NEW") || true)
           # Print the diff
           echo "$NVLOG_DIFF"
           # Save diff to file in formatted way
