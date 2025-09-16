@@ -13,3 +13,6 @@
 [submodule "pack-cli-git"]
 	path = pack-cli-git
 	url = https://aur.archlinux.org/pack-cli-git.git
+[submodule "kitops"]
+	path = kitops
+	url = https://aur.archlinux.org/kitops.git
