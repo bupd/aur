@@ -1,5 +1,6 @@
-dagger: updated to 0.18.17 
+dagger: updated to 0.18.18 
 git-donkey: updated to 1.0.2 
 harbor-cli: updated to 0.0.11 
+kitops: updated to 1.8.0 
 oras: updated to 1.3.0 
 pack-cli: updated to 0.38.2 
