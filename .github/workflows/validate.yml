@@ -1,0 +1,75 @@
+name: Validate PKGBUILDs
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    container:
+      image: archlinux:base-devel
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: true
+
+      - name: Install dependencies
+        run: |
+          pacman -Syu --noconfirm namcap git
+
+      - name: Get changed packages
+        id: changed
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          CHANGED_DIRS=$(git diff --name-only origin/main...HEAD | grep -E '^[^/]+/PKGBUILD$' | xargs -I {} dirname {} | sort -u || true)
+          echo "dirs=$CHANGED_DIRS" >> "$GITHUB_OUTPUT"
+          echo "Changed packages: $CHANGED_DIRS"
+
+      - name: Validate PKGBUILDs
+        env:
+          CHANGED_DIRS: ${{ steps.changed.outputs.dirs }}
+        run: |
+          if [ -z "$CHANGED_DIRS" ]; then
+            echo "No PKGBUILD changes detected"
+            exit 0
+          fi
+
+          FAILED=0
+          for dir in $CHANGED_DIRS; do
+            echo "== Validating $dir =="
+
+            if [ ! -f "$dir/PKGBUILD" ]; then
+              echo "PKGBUILD not found in $dir"
+              continue
+            fi
+
+            # Run namcap on PKGBUILD
+            echo "Running namcap..."
+            namcap "$dir/PKGBUILD" || true
+
+            # Check .SRCINFO exists
+            if [ ! -f "$dir/.SRCINFO" ]; then
+              echo "ERROR: .SRCINFO missing in $dir"
+              FAILED=1
+              continue
+            fi
+
+            # Validate .SRCINFO is up to date
+            cd "$dir"
+            makepkg --printsrcinfo > .SRCINFO.new
+            if ! diff -q .SRCINFO .SRCINFO.new > /dev/null 2>&1; then
+              echo "ERROR: .SRCINFO is outdated in $dir"
+              echo "Run: makepkg --printsrcinfo > .SRCINFO"
+              diff .SRCINFO .SRCINFO.new || true
+              FAILED=1
+            else
+              echo ".SRCINFO is up to date"
+            fi
+            rm -f .SRCINFO.new
+            cd - > /dev/null
+          done
+
+          exit $FAILED
