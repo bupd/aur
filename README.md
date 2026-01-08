@@ -11,12 +11,12 @@ Arch User Repository packages maintained by bupd. See [list of packages](https:/
 
 | Package | Description | AUR |
 |---------|-------------|-----|
-| [dagger-git](dagger-git/) | Programmable CI/CD engine (git version) | [![AUR](https://img.shields.io/aur/version/dagger-git)](https://aur.archlinux.org/packages/dagger-git) |
-| [kitops](kitops/) | MLOps toolkit for packaging AI/ML models | [![AUR](https://img.shields.io/aur/version/kitops)](https://aur.archlinux.org/packages/kitops) |
-| [harbor-cli](harbor-cli/) | CLI for Harbor container registry | [![AUR](https://img.shields.io/aur/version/harbor-cli)](https://aur.archlinux.org/packages/harbor-cli) |
-| [oras-git](oras-git/) | OCI Registry As Storage (git version) | [![AUR](https://img.shields.io/aur/version/oras-git)](https://aur.archlinux.org/packages/oras-git) |
-| [pack-cli-git](pack-cli-git/) | Cloud Native Buildpacks CLI (git version) | [![AUR](https://img.shields.io/aur/version/pack-cli-git)](https://aur.archlinux.org/packages/pack-cli-git) |
-| [git-donkey](git-donkey/) | Git workflow automation tool | [![AUR](https://img.shields.io/aur/version/git-donkey)](https://aur.archlinux.org/packages/git-donkey) |
+| [dagger-git](dagger-git/) | Programmable CI/CD engine (git version) | [![AUR](https://img.shields.io/aur/version/dagger-git?logo=archlinux&logoColor=white)](https://aur.archlinux.org/packages/dagger-git) |
+| [kitops](kitops/) | MLOps toolkit for packaging AI/ML models | [![AUR](https://img.shields.io/aur/version/kitops?logo=archlinux&logoColor=white)](https://aur.archlinux.org/packages/kitops) |
+| [harbor-cli](harbor-cli/) | CLI for Harbor container registry | [![AUR](https://img.shields.io/aur/version/harbor-cli?logo=archlinux&logoColor=white)](https://aur.archlinux.org/packages/harbor-cli) |
+| [oras-git](oras-git/) | OCI Registry As Storage (git version) | [![AUR](https://img.shields.io/aur/version/oras-git?logo=archlinux&logoColor=white)](https://aur.archlinux.org/packages/oras-git) |
+| [pack-cli-git](pack-cli-git/) | Cloud Native Buildpacks CLI (git version) | [![AUR](https://img.shields.io/aur/version/pack-cli-git?logo=archlinux&logoColor=white)](https://aur.archlinux.org/packages/pack-cli-git) |
+| [git-donkey](git-donkey/) | Git workflow automation tool | [![AUR](https://img.shields.io/aur/version/git-donkey?logo=archlinux&logoColor=white)](https://aur.archlinux.org/packages/git-donkey) |
 
 ## Installation
 
