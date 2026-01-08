@@ -63,6 +63,6 @@ jobs:
           base: 'main'
           title: Update Packages in AUR
           body-path: pr_body.md
-          # labels: report, automated pr
+          labels: automated, version-update
           assignees: bupd
           reviewers: bupd
