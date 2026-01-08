@@ -1,1 +1,7 @@
 nvchecker.diff
+cli/
+dagger-bin/
+dagger-main/
+orasbin/
+orasgitt/
+slack-desktop/
