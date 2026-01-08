@@ -47,7 +47,7 @@ jobs:
             echo "## Updates"
             echo ""
             echo '```diff'
-            git diff nvchecker.log | grep '^[-+]' | grep -v '^[-+][-+][-+]'
+            git diff nvchecker.log | grep '^[-+]' | grep -v '^[-+][-+][-+]' || true
             echo '```'
           } > pr_body.md
 
