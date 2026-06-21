@@ -1,6 +1,5 @@
 # AUR Packages
 
-[![Validate PKGBUILDs](https://github.com/bupd/aur/actions/workflows/validate.yml/badge.svg)](https://github.com/bupd/aur/actions/workflows/validate.yml)
 [![Check for Updates](https://github.com/bupd/aur/actions/workflows/check_updates.yml/badge.svg)](https://github.com/bupd/aur/actions/workflows/check_updates.yml)
 [![AUR Maintainer](https://img.shields.io/badge/AUR-bupd-1793d1?logo=archlinux&logoColor=white)](https://aur.archlinux.org/packages?K=bupd&SeB=m)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
