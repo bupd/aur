@@ -1,6 +1,48 @@
 dagger: updated to 0.21.7 
 git-donkey: updated to 1.0.2 
 harbor-cli: updated to 0.0.22 
-kitops: updated to 1.14.0 
+kitops: updated to 1.15.0 
 oras: updated to 1.3.2 
-pack-cli: updated to 0.40.6 
+pack-cli: rate limited, resetting 
+error happened error=HTTPError(403, 'Forbidden', 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+headers)    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+0x7f638f298ae0>,code=403,effective_url='https://api.github.com/repos/buildpacks/pack/git/refs/tags',error=HTTP 403: Forbidden,headers=<tornado.httputil.HTTPHeaders object 
+error="HTTPError(403, 'Forbidden', HTTPResponse(_body=None,_error_is_response_code=True,buffer=<_io.BytesIO object 
