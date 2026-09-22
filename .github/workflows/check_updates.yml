@@ -6,6 +6,7 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  merge_group:
   schedule:
     - cron: '0 0 * * *'  # Runs everyday
 
@@ -52,6 +53,8 @@ jobs:
           } > pr_body.md
 
       - name: Create Pull Request
+        # queue branches only verify the checker runs; never open PRs from them
+        if: github.event_name != 'merge_group'
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
