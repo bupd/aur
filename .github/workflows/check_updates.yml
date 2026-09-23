@@ -9,12 +9,14 @@ on:
   merge_group:
   schedule:
     - cron: '0 0 * * *'  # Runs everyday
+  workflow_dispatch:
 
 jobs:
   check-for-updates:
+    # Runs repo-controlled code (./newver-checker) on PR and queue refs,
+    # so this job only ever gets a read-only token.
     permissions:
-      contents: write
-      pull-requests: write
+      contents: read
     runs-on: ubuntu-latest  # Use an Ubuntu runner
     steps:
       - name: Checkout repository
@@ -52,9 +54,34 @@ jobs:
             echo '```'
           } > pr_body.md
 
+      - name: Upload checker output
+        uses: actions/upload-artifact@v7
+        with:
+          name: nvchecker
+          path: |
+            nvchecker.log
+            pr_body.md
+
+  open-update-pr:
+    # PR and queue runs only verify the checker works. Opening update PRs
+    # from them spams branches and needs PR-creation rights the token lacks.
+    # Only this job holds a write token, and only on trusted events.
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'push'
+    needs: check-for-updates
+    permissions:
+      contents: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download checker output
+        uses: actions/download-artifact@v7
+        with:
+          name: nvchecker
+
       - name: Create Pull Request
-        # queue branches only verify the checker runs; never open PRs from them
-        if: github.event_name != 'merge_group'
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
